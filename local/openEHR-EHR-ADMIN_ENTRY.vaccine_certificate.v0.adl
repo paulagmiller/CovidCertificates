@@ -1,0 +1,118 @@
+archetype (adl_version=1.4; uid=ea5a18e4-b568-4e8e-8c71-eee581dc11fb)
+	openEHR-EHR-ADMIN_ENTRY.vaccine_certificate.v0
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::en]>
+
+description
+	original_author = <
+		["date"] = <"2021-02-17">
+		["name"] = <"Ian McNicoll">
+		["organisation"] = <"freshEHR Clinical Informatics Ltd.">
+		["email"] = <"ian@freshehr.com">
+	>
+	lifecycle_state = <"unmanaged">
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["references"] = <"https://ec.europa.eu/health/sites/health/files/ehealth/docs/vaccination-proof_interoperability-guidelines_en.pdf">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"c9de6e8472df3e9cb4fd2cdc26bd6363">
+		["build_uid"] = <"29eb8f3d-e4ef-338f-9f8d-5794029517df">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {    -- Vaccine certification
+		data matches {
+			ITEM_TREE[at0001] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0012] matches {    -- Certificate issuer
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] matches {    -- Certificate identifier
+						value matches {
+							DV_IDENTIFIER matches {
+								type matches {/UVCI/}
+							}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {    -- Certificate valid from
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {    -- Certificate valid until
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0008] matches {    -- Certificate schema version
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {    -- Status of  validity
+						value matches {
+							DV_CODED_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vaccine certification">
+					description = <"Vaccine certificate">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Certificate valid from">
+					description = <"Certificate valid from (required if known).">
+				>
+				["at0006"] = <
+					text = <"Certificate valid until">
+					description = <"Certificate valid until (validity can differ
+from the expected immunisation period).">
+				>
+				["at0007"] = <
+					text = <"Status of  validity">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Certificate schema version">
+					description = <"Certificate valid from (required if known).">
+					comment = <"Uses semantic versioning">
+				>
+				["at0011"] = <
+					text = <"Certificate identifier">
+					description = <"Unique identifier of the certificate (UVCI), to be printed (human readable) into the certificate">
+					comment = <"The unique identifier can be included in the IIS">
+				>
+				["at0012"] = <
+					text = <"Certificate issuer">
+					description = <"Entity that has issued the certificate">
+					comment = <"This is the entity from which the certificate can be checked.">
+				>
+			>
+		>
+	>
